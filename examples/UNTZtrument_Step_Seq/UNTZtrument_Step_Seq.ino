@@ -43,6 +43,7 @@ unsigned int  bpm          = 240;          // Tempo
 unsigned long beatInterval = 60000L / bpm, // ms/beat
               prevBeatTime = 0L,           // Column step timer
               prevReadTime = 0L;           // Keypad polling timer
+unsigned int  brightness   = 0;            // LED Brightness               
 
 // The note[] and channel[] tables are the MIDI note and channel numbers
 // for to each row (top to bottom); they're specific to this application.
@@ -139,6 +140,7 @@ void loop() {
     refresh      = true;
     bpm          = enc0.getValue() / 1; // Div for encoder detents
     beatInterval = 60000L / bpm;
+    brightness   = enc3.getValue() / 1; //LED Brightness 
   }
 
   if(refresh) untztrument.writeDisplay();
