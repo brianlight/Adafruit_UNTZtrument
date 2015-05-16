@@ -31,7 +31,10 @@ const uint8_t        addr[] = { 0x70, 0x71, 0x72, 0x73,
 
 // Encoder on pins 4,5 sets tempo.  Optional, not present in
 // standard UNTZtrument, but won't affect things if unconnected.
-enc e(4, 5);
+enc enc0(11,12);
+enc enc1(9,10);
+enc enc2(7,8);
+enc enc3(5,6);
 
 uint8_t       grid[WIDTH];                 // Sequencer state
 uint8_t       heart        = 0,            // Heartbeat LED counter
@@ -67,8 +70,10 @@ void setup() {
   untztrument.clear();
   untztrument.writeDisplay();
   memset(grid, 0, sizeof(grid));
-  e.setBounds(60 * 4, 480 * 4 + 3); // Set tempo limits
-  e.setValue(bpm * 4);              // *4's for encoder detents
+  enc0.setBounds(60 * 4, 480 * 4 + 3); // Set tempo limits
+  enc0.setValue(bpm * 4);              // *4's for encoder detents
+  enc3.setBounds(0,5);
+  enc0.setValue(0);
 }
 
 // Turn on (or off) one column of the display
@@ -132,7 +137,7 @@ void loop() {
     }
     prevBeatTime = t;
     refresh      = true;
-    bpm          = e.getValue() / 4; // Div for encoder detents
+    bpm          = enc0.getValue() / 1; // Div for encoder detents
     beatInterval = 60000L / bpm;
   }
 
